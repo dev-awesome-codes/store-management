@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  store-management:
+    image: sm:docker-compose-pro
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    environment:
+      spring_datasource_url: jdbc:mysql://mysql:3306/store?createDatabaseIfNotExist=true
+
+  mysql:
+    image: mysql
+    ports:
+      - 3331:3306
+    volumes:
+      - mysql-data-compose:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+
+volumes:
+  mysql-data-compose:
