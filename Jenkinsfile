@@ -1,4 +1,5 @@
 def CONTAINER_NAME="store-management"
+def CONTAINER_TAG="latest"
 
 pipeline {
     agent any
