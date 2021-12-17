@@ -1,3 +1,6 @@
+def CONTAINER_NAME="store-management"
+def CONTAINER_TAG="latest"
+
 pipeline {
     agent any
     stages {
@@ -12,7 +15,13 @@ pipeline {
                     echo "test successful";
                 } 
         }
-       
+        stage("Image Prune"){
+            imagePrune(CONTAINER_NAME)
+        }
+        stage('Image Build'){
+            imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+        }
+    
     }
     post {
         always {
@@ -34,4 +43,16 @@ pipeline {
         }
     }
    
+}
+
+def imagePrune(containerName){
+    try {
+        sh "docker image prune -f"
+        sh "docker stop $containerName"
+    } catch(error){}
+}
+
+def imageBuild(containerName, tag){
+    sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
+    echo "Image build complete"
 }
