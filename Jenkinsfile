@@ -15,13 +15,18 @@ pipeline {
                     echo "test successful";
                 } 
         }
-
-        stage("Image Prune"){
-            imagePrune(CONTAINER_NAME)
+        stage('Image Prune'){
+            steps {
+                imagePrune(CONTAINER_NAME)
+            }
+            
         }
-        
+
         stage('Image Build'){
-            imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+            steps {
+                imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+            }
+            
         }
     
     }
