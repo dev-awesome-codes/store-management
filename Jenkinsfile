@@ -6,6 +6,13 @@ pipeline {
                 sh 'mvn verify'
             }
         }
+        stage ('Test') {  
+            steps{
+                ssh label: '', script: 'mvn test'
+                    echo "test successful";
+                } 
+            }
+        }
     }
     post {
         always {
@@ -26,4 +33,5 @@ pipeline {
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
+   
 }
