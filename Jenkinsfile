@@ -33,6 +33,11 @@ pipeline {
                 pushToImage(CONTAINER_NAME, CONTAINER_TAG, '${USERNAME}', '${PASSWORD}')
             }
         }
+        stage('Run App'){
+            steps {
+                runApp(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, HTTP_PORT)
+            }
+        }
     }
     post {
         always {
@@ -73,4 +78,11 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
     sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
     sh "docker push $dockerUser/$containerName:$tag"
     echo "Image push complete"
+}
+
+def runApp(containerName, tag, dockerHubUser, httpPort){
+    sh "docker pull $dockerHubUser/$containerName"
+    sh "docker-compose down"
+    sh "docker-compose up -d"
+    echo "Application started on port: 8090"
 }
