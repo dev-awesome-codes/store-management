@@ -8,7 +8,7 @@ pipeline {
         }
         stage ('Test') {  
             steps{
-                ssh 'mvn test'
+                sh 'mvn test'
                     echo "test successful";
                 } 
         }
