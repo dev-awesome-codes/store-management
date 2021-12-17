@@ -11,8 +11,8 @@ pipeline {
                 ssh label: '', script: 'mvn test'
                     echo "test successful";
                 } 
-            }
         }
+       
     }
     post {
         always {
