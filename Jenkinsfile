@@ -1,5 +1,4 @@
 def CONTAINER_NAME="store-management"
-def CONTAINER_TAG="latest"
 
 pipeline {
     agent any
@@ -35,7 +34,7 @@ pipeline {
         }
         stage('Run App'){
             steps {
-                runApp(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, HTTP_PORT)
+                runApp(CONTAINER_NAME, '${USERNAME}')
             }
         }
     }
@@ -80,7 +79,7 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
     echo "Image push complete"
 }
 
-def runApp(containerName, tag, dockerHubUser, httpPort){
+def runApp(containerName, dockerHubUser){
     sh "docker pull $dockerHubUser/$containerName"
     sh "docker-compose down"
     sh "docker-compose up -d"
