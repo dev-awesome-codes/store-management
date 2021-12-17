@@ -29,8 +29,9 @@ pipeline {
             
         }
         stage('Push to Docker Registry'){
-            withCredentials([usernamePassword(usernameVariable: '${USERNAME}', passwordVariable: '${PASSWORD}')]) {
-            pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
+            steps {
+                pushToImage(CONTAINER_NAME, CONTAINER_TAG, ${USERNAME}, ${PASSWORD})
+            }
         }
     }
     
