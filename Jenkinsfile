@@ -34,8 +34,6 @@ pipeline {
             }
         }
     }
-    
-    }
     post {
         always {
             archiveArtifacts 'target/*.jar'
