@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Push to Docker Registry'){
             steps {
-                pushToImage(CONTAINER_NAME, CONTAINER_TAG, ${USERNAME}, ${PASSWORD})
+                pushToImage(CONTAINER_NAME, CONTAINER_TAG, '${USERNAME}', '${PASSWORD}')
             }
         }
     }
